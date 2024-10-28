@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfólio</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container">
+        <a class="navbar-brand" href="#">
+            <img src="assets\images\6.png" alt="Bootstrap" width="100" height="90">
+        </a>
+        <a class="navbar-brand" href="#">Meu Portfólio</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item"><a class="nav-link" href="#sobre">Sobre</a></li>
+            <li class="nav-item"><a class="nav-link" href="#projetos">Projetos</a></li>
+            <li class="nav-item"><a class="nav-link" href="#contato">Contato</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <header class="jumbotron text-center bg-primary text-white mb-4">
+        <div class="container">
+          <h1 class="display-4">Bem-vindo ao Meu Portfólio</h1>
+          <p class="lead">Um pequeno vislumbre dos meus projetos e habilidades.</p>
+        </div>
+    </header>
+
+    <section id="sobre" class="container mb-4">
+        <h2 class="text-center mb-4">Sobre Mim</h2>
+        <p class="text-center">Sou um desenvolvedor apaixonado por tecnologia e inovação, sempre em busca de novos conhecimentos e desafios.</p>
+    </section>
+
+    <section id="projetos" class="container mb-4">
+        <h2 class="text-center mb-4">Meus Projetos</h2>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="card mb-4">
+              <img src="assets/images/projeto1.jpg" class="card-img-top" alt="Projeto 1">
+              <div class="card-body">
+                <h5 class="card-title">Projeto 1</h5>
+                <p class="card-text">Descrição breve do projeto.</p>
+                <a href="#" class="btn btn-primary">Ver Projeto</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card mb-4">
+              <img src="assets/images/projeto2.jpg" class="card-img-top" alt="Projeto 2">
+              <div class="card-body">
+                <h5 class="card-title">Projeto 2</h5>
+                <p class="card-text">Descrição breve do projeto.</p>
+                <a href="#" class="btn btn-primary">Ver Projeto</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card mb-4">
+              <img src="assets/images/projeto3.jpg" class="card-img-top" alt="Projeto 3">
+              <div class="card-body">
+                <h5 class="card-title">Projeto 3</h5>
+                <p class="card-text">Descrição breve do projeto.</p>
+                <a href="#" class="btn btn-primary">Ver Projeto</a>
+              </div>
+            </div>
+          </div>
+        </div>
+    </section>
+
+    <section id="contato" class="container mb-4">
+        <h2 class="text-center mb-4">Contato</h2>
+        <form>
+          <div class="form-group">
+            <label for="name">Nome</label>
+            <input type="text" class="form-control" id="name" placeholder="Seu Nome">
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" placeholder="Seu Email">
+          </div>
+          <div class="form-group">
+            <label for="message">Mensagem</label>
+            <textarea class="form-control" id="message" rows="3" placeholder="Sua Mensagem"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Enviar</button>
+        </form>
+    </section>
+
+    <footer class="bg-dark text-white text-center py-3">
+        <p>&copy; 2024 Gustavo da Silva Miranda. Todos os direitos reservados.</p>
+    </footer>
+
+
+    <script src="/js/script.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
