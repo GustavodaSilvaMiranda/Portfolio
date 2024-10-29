@@ -1,0 +1,49 @@
+@font-face {
+    font-family: 'lato';
+    src: url('./assets/fonts/lato') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'lato';
+    src: url('./assets/fonts/Lato/Lato-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'lato';
+    src: url('./assets/fonts/Lato/Lato-Light.ttf') format('truetype');
+    font-weight: lighter;
+    font-style: normal;
+}
+
+.header{
+    background-color: #00000000;
+}
+
+
+.nav-title 
+{
+    font-family: 'lato', sans-serif !important;
+    font-weight: bold !important;
+    font-size: 2rem;
+    color: #000000 !important;
+}
+
+.nav-link 
+{
+    font-family: 'lato', sans-serif !important;
+    font-weight: bold !important;
+    color: #000000 !important;
+    transition: all 0.3s ease; /* Transição suave */
+}
+.nav-link:hover {
+    color: #000a1e !important;
+    transform: scale(1.1) !important; /* Escala o elemento em 10% */
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Navbar com gradiente */
+.bg-gradient {
+    background: linear-gradient(90deg, #0097b2, #7ed957) !important; /* Cores do gradiente */
+}
