@@ -1,26 +1,35 @@
 @font-face {
     font-family: 'lato';
-    src: url('./assets/fonts/lato') format('truetype');
+    src: url('assets/fonts/lato') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
 @font-face {
     font-family: 'lato';
-    src: url('./assets/fonts/Lato/Lato-Bold.ttf') format('truetype');
+    src: url('assets/fonts/Lato/Lato-Bold.ttf') format('truetype');
     font-weight: bold;
     font-style: normal;
 }
 @font-face {
     font-family: 'lato';
-    src: url('./assets/fonts/Lato/Lato-Light.ttf') format('truetype');
+    src: url('assets/fonts/Lato/Lato-Light.ttf') format('truetype');
     font-weight: lighter;
     font-style: normal;
 }
 
-.header{
-    background-color: #00000000;
+.header {
+    background-image: url(../assets/images/Coelho/DesignSemNome.png) !important; /* Caminho da imagem */
+    background-size: cover; /* Preenche a área */
+    background-position: center; /* Centraliza a imagem */
+    background-repeat: no-repeat; /* Evita repetição da imagem */
+    background-attachment: fixed; /* Fixa a imagem de fundo */
+    height: 100vh; /* Ocupa a altura total da tela */
+    width: 100%; /* Largura total */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white; /* Ajuste para visibilidade */
 }
-
 
 .nav-title 
 {
@@ -33,7 +42,7 @@
 .nav-link 
 {
     font-family: 'lato', sans-serif !important;
-    font-weight: bold !important;
+    font-size: 1.1rem;
     color: #000000 !important;
     transition: all 0.3s ease; /* Transição suave */
 }
@@ -45,5 +54,39 @@
 
 /* Navbar com gradiente */
 .bg-gradient {
-    background: linear-gradient(90deg, #0097b2, #7ed957) !important; /* Cores do gradiente */
+    background: linear-gradient(90deg, #0097B2, #7ED957); /* Gradiente de fundo */
+    position: relative; /* Necessário para a camada overlay */
+    z-index: 0; /* Define a camada de fundo */
+}
+
+.bg-gradient::before {
+    content: ""; /* Cria a camada de sobreposição */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(175, 175, 175, 0.5); /* Cor semi-transparente */
+    z-index: -1; /* Posiciona atrás do conteúdo da navbar */
+    pointer-events: none; /* Não interfere na interatividade */
+}
+
+.body
+{
+    background: rgb(220, 220, 220)
+}
+
+/* Define o estado inicial da animação */
+.section 
+{
+    opacity: 0; /* Invisível inicialmente */
+    transform: translateY(30px); /* Posiciona ligeiramente abaixo */
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out; /* Transição suave */
+}
+
+/* Estado final - quando a classe 'visible' for adicionada */
+.section.visible
+{
+    opacity: 1;
+    transform: translateY(0); /* Volta à posição normal */
 }
