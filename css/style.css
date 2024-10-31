@@ -17,6 +17,17 @@
     font-style: normal;
 }
 
+.col {
+    padding: 15px !important;
+}
+.card {
+    border-radius: 5px !important;
+}
+.card-img-top {
+    border-radius: 5px;
+    size-adjust: cover;
+}
+
 .header {
     background-image: url(../assets/images/Coelho/DesignSemNome.png) !important; /* Caminho da imagem */
     background-size: cover; /* Preenche a área */
@@ -36,39 +47,47 @@
     font-family: 'lato', sans-serif !important;
     font-weight: bold !important;
     font-size: 2rem;
-    color: #000000 !important;
+    color: #ffffff !important;
+}
+
+.jumbotron{
+    background-color: #d2d2d200;
 }
 
 .nav-link 
 {
+    padding: 0px;
     font-family: 'lato', sans-serif !important;
     font-size: 1.1rem;
-    color: #000000 !important;
+    color: #ffffff !important;
     transition: all 0.3s ease; /* Transição suave */
 }
 .nav-link:hover {
-    color: #000a1e !important;
-    transform: scale(1.1) !important; /* Escala o elemento em 10% */
+    color: #d2d2d2 !important;
     text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2) !important;
+}
+.navbar-img {
+    width: 14vh;
+}
+
+.btn-custom {
+    font-family: 'lato', sans-serif !important;
+    border: 2px solid orange; /* Define a borda laranja */
+    background-color: transparent; /* Fundo transparente */
+    color: orange; /* Texto laranja */
+    transition: box-shadow 0.3s ease; /* Transição suave para a sombra */
+    border-radius: 0%;
+}
+.btn-custom:hover {
+    box-shadow: 0px 0px 10px 2px orange; /* Sombra laranja ao passar o mouse */
+    color: orange; /* Garante que a cor do texto permaneça laranja */
 }
 
 /* Navbar com gradiente */
 .bg-gradient {
-    background: linear-gradient(90deg, #0097B2, #7ED957); /* Gradiente de fundo */
+    background-color: rgba(220, 220, 220, 0); /* Gradiente de fundo */
     position: relative; /* Necessário para a camada overlay */
     z-index: 0; /* Define a camada de fundo */
-}
-
-.bg-gradient::before {
-    content: ""; /* Cria a camada de sobreposição */
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(175, 175, 175, 0.5); /* Cor semi-transparente */
-    z-index: -1; /* Posiciona atrás do conteúdo da navbar */
-    pointer-events: none; /* Não interfere na interatividade */
 }
 
 .body
@@ -89,4 +108,13 @@
 {
     opacity: 1;
     transform: translateY(0); /* Volta à posição normal */
+}
+
+
+#canvas1 {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(#ffc38c, #ff9b40);
 }

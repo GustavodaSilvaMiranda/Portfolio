@@ -9,12 +9,14 @@
     <link rel="stylesheet" href="./css/style.css">
 </head>
 <body class="body">
+  <div class="header d-flex flex-column p-0">
     <nav class="navbar navbar-expand-lg bg-gradient">
-      <div class="container">
+      <div class="container d-flex flex-column p-0">
         <a class="navbar-brand" href="#">
-            <img src="assets\images\6.png" alt="Logo" width="100" height="90">
+            <img src="assets/images/Logo/LogoBranco.png" alt="Logo" class="navbar-img">
         </a>
         <a class="navbar-brand nav-title" id="typing-title" href="#"></a>
+        <!--
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -25,51 +27,51 @@
             <li class="nav-item"><a class="nav-link" href="#contato">Contato</a></li>
           </ul>
         </div>
+        -->
       </div>
     </nav>
-
-    <header class="jumbotron text-center mb-4 header">
+  
+    <header class="jumbotron text-center mb-4">
         <div class="container">
           <h1 class="display-4">Bem-vindo ao Meu Portfólio</h1>
           <p class="lead">Um pequeno vislumbre dos meus projetos e habilidades.</p>
+          <button type="button" class="btn btn-custom"><a class="nav-link nav-link-btn" href="#sobre">Saiba Mais</a></button>
         </div>
     </header>
-
+  </div>
     <section id="sobre" class="section animate-on-scroll container mb-4">
         <h2 class="text-center mb-4">Sobre Mim</h2>
         <p class="text-center">Sou um desenvolvedor apaixonado por tecnologia e inovação, sempre em busca de novos conhecimentos e desafios.</p>
     </section>
+    <canvas id="canvas1"></canvas>
 
     <section id="projetos" class="section animate-on-scroll container mb-4">
         <h2 class="text-center mb-4">Meus Projetos</h2>
-        <div class="row">
-          <div class="col-md-4">
-            <div class="card mb-4">
-              <img src="assets/images/projeto1.jpg" class="card-img-top" alt="Projeto 1">
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+          <div class="col">
+            <div class="card">
+              <img src="./assets/images/Coelho/CoelhoCabeca.jpeg" class="card-img-top" alt="...">
               <div class="card-body">
-                <h5 class="card-title">Projeto 1</h5>
-                <p class="card-text">Descrição breve do projeto.</p>
-                <a href="#" class="btn btn-primary">Ver Projeto</a>
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
               </div>
             </div>
           </div>
-          <div class="col-md-4">
-            <div class="card mb-4">
-              <img src="assets/images/projeto2.jpg" class="card-img-top" alt="Projeto 2">
+          <div class="col">
+            <div class="card">
+              <img src="./assets/images/Coelho/CoelhoCabeca.jpeg" class="card-img-top" alt="...">
               <div class="card-body">
-                <h5 class="card-title">Projeto 2</h5>
-                <p class="card-text">Descrição breve do projeto.</p>
-                <a href="#" class="btn btn-primary">Ver Projeto</a>
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
               </div>
             </div>
           </div>
-          <div class="col-md-4">
-            <div class="card mb-4">
-              <img src="assets/images/projeto3.jpg" class="card-img-top" alt="Projeto 3">
+          <div class="col">
+            <div class="card">
+              <img src="./assets/images/Coelho/CoelhoCabecaPeito.jpeg" class="card-img-top" alt="...">
               <div class="card-body">
-                <h5 class="card-title">Projeto 3</h5>
-                <p class="card-text">Descrição breve do projeto.</p>
-                <a href="#" class="btn btn-primary">Ver Projeto</a>
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
               </div>
             </div>
           </div>
