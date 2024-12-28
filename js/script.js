@@ -36,6 +36,19 @@ function animateOnScroll() {
     });
 }
 
+document.querySelector('a[href="#sobre"]').addEventListener('click', function (event) {
+    event.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    const offset = window.innerWidth <= 768 ? 50 : 75;
+    const elementPosition = target.getBoundingClientRect().top;
+    const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+    window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth"
+    });
+});
+
 window.addEventListener('scroll', animateOnScroll)
 window.addEventListener('load', animateOnScroll)
 
@@ -78,7 +91,7 @@ class Particle {
     draw() {
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
-        ctx.fillStyle = '#235A8C';
+        ctx.fillStyle = '#003667';
         ctx.fill();
     }
     //checa a posição da particula e do mouse
@@ -116,13 +129,13 @@ class Particle {
 function init() {
     particlesArrey = [];
     let numberOfParticles = (canvas.height * canvas.width) / 9000;
-    for (let i = 0; i < numberOfParticles*2; i++) {
+    for (let i = 0; i < numberOfParticles; i++) {
         let size = (Math.random() * 5) + 1;
         let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size *2);
         let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size *2);
         let directionX = (Math.random() * 5) - 2.5;
         let directionY = (Math.random() * 5) - 2.5;
-        let color = '#235A8C';
+        let color = '#003667';
 
         particlesArrey.push(new Particle(x, y, directionX, directionY, size, color));
     }

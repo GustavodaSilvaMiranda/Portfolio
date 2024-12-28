@@ -78,10 +78,11 @@
     color: #235A8C; /* Texto laranja */
     transition: box-shadow 0.3s ease; /* Transição suave para a sombra */
     border-radius: 0%;
+    transition: border-radius 0.3s ease, box-shadow 0.3s ease;
 }
 .btn-custom:hover {
-    box-shadow: 0px 0px 10px 2px #235A8C; /* Sombra laranja ao passar o mouse */
-    color: #235A8C; /* Garante que a cor do texto permaneça laranja */
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 2px #235A8C;
 }
 
 /* Navbar com gradiente */
@@ -94,6 +95,10 @@
 .body
 {
     background: rgb(220, 220, 220)
+}
+
+h1, h2, h3, h4, h5, p, a{
+    font-family: 'lato', sans-serif !important;
 }
 
 /* Define o estado inicial da animação */
