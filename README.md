@@ -1,4 +1,6 @@
-![Logo](assets/images/Logo/LogoBranco.png)
+<p align="center">
+  <img src="assets/images/Logo/LogoBranco.png" alt="Logotipo" width="300">
+</p>
 Gustavo da Silva Miranda
 Bem-vindo ao meu portfólio oficial!
 Explore meu trabalho, conheça minha marca e descubra soluções personalizadas que transformam ideias em realidade.
