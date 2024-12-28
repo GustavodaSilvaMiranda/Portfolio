@@ -185,5 +185,10 @@ window.addEventListener('mouseout',
 );
 
 
+// Atualiza automaticamente o ano no texto
+document.querySelector('.year').textContent = new Date().getFullYear();
+    
+
+
 init();
 animate();

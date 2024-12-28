@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Copyright</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #f4f4f4;
+        }
+        .container {
+            max-width: 800px;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        h1 {
+            font-size: 24px;
+            color: #333;
+        }
+        p {
+            font-size: 16px;
+            color: #555;
+        }
+        a {
+            color: #007BFF;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .year {
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Termos de Copyright</h1>
+        <p>
+            Todos os direitos reservados. Este site e todo o conteúdo nele apresentado são protegidos por direitos autorais © 
+            <span class="year"></span> <strong>Gustavo Miranda</strong>.
+        </p>
+        <p>
+            O uso não autorizado de qualquer conteúdo, incluindo o logotipo, é estritamente proibido. Para compartilhar com o propósito de exibir a marca ou os serviços, entre em contato.
+        </p>
+        <p>
+            Entre em contato conosco através de <a href="mailto:gustavomiranda.enterprise@gmail.com">gustavomiranda.enterprise@gmail.com</a> para mais informações ou autorização.
+        </p>
+        <p><a href="../../index.html">Voltar ao início</a></p>
+    </div>
+
+    <script>
+        // Atualiza automaticamente o ano no texto
+        document.querySelector('.year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
