@@ -27,7 +27,7 @@ Foco na Identidade Visual: Valorização da minha marca pessoal.
 📜 Licença
 Todos os direitos sobre o conteúdo deste site, incluindo logotipo e nome da marca, são reservados.
 Sinta-se livre para compartilhar o site apenas para fins de exibição da marca ou dos serviços oferecidos.
-Leia mais sobre os termos de uso na [Página de Copyright.](pages/copyright.html)
+Leia mais sobre os termos de uso na [Página de Copyright.](https://gustavodasilvamiranda.github.io/Portfolio/docs/Pages/Copyright.html)
 
 📬 Contato
 Gostou do meu trabalho? Vamos conversar!
