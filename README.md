@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/images/Logo/LogoBranco.png" alt="Logotipo" width="300">
+  <img src="assets/images/Logo/LogoBranco.png" alt="Logotipo" width="150">
 </p>
 Gustavo da Silva Miranda
 Bem-vindo ao meu portfólio oficial!
