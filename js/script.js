@@ -106,19 +106,13 @@ class Particle {
         let dx = mouse.x - this.x;
         let dy = mouse.y - this.y;
         let distance = Math.sqrt(dx*dx + dy*dy);
-        if (distance < mouse.radius + this.size){
-            if (mouse.x < this.x && this.x < canvas.width - this.size * 10) {
-                this.x += 10;
-            }
-            if (mouse.x > this.x && this.x > this.size * 10) {
-                this.x -= 10;
-            }
-            if (mouse.y > this.y && this.y < canvas.height - this.size * 10) {
-                this.y += 10;
-            }
-            if (mouse.y > this.y && this.y > this.size * 10) {
-                this.y -= 10;
-            }
+        if (distance < mouse.radius + this.size) {
+            const force = (mouse.radius - distance) / mouse.radius; // valor entre 0 e 1
+            const moveX = (dx / distance) * force * 5; // força moderada
+            const moveY = (dy / distance) * force * 5;
+
+            this.x -= moveX;
+            this.y -= moveY;
         }
         this.x += this.directionX;
         this.y += this.directionY;
@@ -183,6 +177,42 @@ window.addEventListener('mouseout',
         mouse.y = undefined;
     }
 );
+
+document.addEventListener('DOMContentLoaded', () => {
+  const loveBtn = document.querySelector('.love-btn');
+  const transitionCanvas = document.getElementById('transition-canvas');
+
+  if (loveBtn && transitionCanvas) {
+    // Prepara o gradiente do fundo igual ao do login
+    const tCtx = transitionCanvas.getContext('2d');
+    transitionCanvas.width = window.innerWidth;
+    transitionCanvas.height = window.innerHeight;
+
+    const gradient = tCtx.createRadialGradient(
+      transitionCanvas.width / 2,
+      transitionCanvas.height / 2,
+      100,
+      transitionCanvas.width / 2,
+      transitionCanvas.height / 2,
+      transitionCanvas.width
+    );
+    gradient.addColorStop(0, '#ffccd5'); // cor clara
+    gradient.addColorStop(1, '#b33951'); // cor escura
+
+    tCtx.fillStyle = gradient;
+    tCtx.fillRect(0, 0, transitionCanvas.width, transitionCanvas.height);
+
+    // Efeito de fade com canvas
+    loveBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      document.body.classList.add('fade-out');
+      setTimeout(() => {
+        window.location.href = loveBtn.getAttribute('href');
+      }, 800);
+    });
+  }
+});
+
 
 
 // Atualiza automaticamente o ano no texto
