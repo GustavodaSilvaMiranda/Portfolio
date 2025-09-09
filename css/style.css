@@ -46,7 +46,7 @@ body.fade-out #transition-canvas {
     color: #ffffff !important;
 }
 
-body .jumbotron {
+body.jumbotron {
     padding: 2rem;
 }
 
