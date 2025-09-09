@@ -46,13 +46,11 @@ body.fade-out #transition-canvas {
     color: #ffffff !important;
 }
 
-body.jumbotron {
-    padding: 2rem;
-}
 
 .jumbotron{
     background-color: #d2d2d200;
     z-index: 0;
+    padding: 2rem;
 }
 
 .nav-link 
