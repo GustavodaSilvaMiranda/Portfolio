@@ -1,22 +1,3 @@
-@font-face {
-    font-family: 'lato';
-    src: url('assets/fonts/lato') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-}
-@font-face {
-    font-family: 'lato';
-    src: url('assets/fonts/Lato/Lato-Bold.ttf') format('truetype');
-    font-weight: bold;
-    font-style: normal;
-}
-@font-face {
-    font-family: 'lato';
-    src: url('assets/fonts/Lato/Lato-Light.ttf') format('truetype');
-    font-weight: lighter;
-    font-style: normal;
-}
-
 #transition-canvas {
   position: fixed;
   top: 0;
@@ -63,6 +44,10 @@ body.fade-out #transition-canvas {
     font-weight: bold !important;
     font-size: 2rem;
     color: #ffffff !important;
+}
+
+body .jumbotron {
+    padding: 2rem;
 }
 
 .jumbotron{
