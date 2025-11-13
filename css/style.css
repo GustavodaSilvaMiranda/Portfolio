@@ -16,12 +16,55 @@ body.fade-out #transition-canvas {
 .col {
     padding: 15px !important;
 }
-.card {
-    border-radius: 5px !important;
-}
+
 .card-img-top {
     border-radius: 5px;
     size-adjust: cover;
+}
+
+/* A perspectiva fica no contêiner que envolve todos os cards */
+#projetos .row { 
+  perspective: 1000px;
+}
+
+/* Suavidade + performance */
+#projetos .card {
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  will-change: transform;
+}
+
+/* Elevação base no hover (todas as posições) */
+#projetos .card:hover {
+  transform: translateY(-10px) scale(1.03);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.30);
+  z-index: 5;
+}
+
+/* Origem da transformação p/ acentuar o “dobrar” */
+#projetos .col:nth-child(3n+1) .card { transform-origin: left center; }
+#projetos .col:nth-child(3n+3) .card { transform-origin: right center; }
+
+/* Esquerda: inclina levemente p/ dentro */
+#projetos .col:nth-child(3n+1) .card:hover {
+  transform: translateY(-10px) scale(1.03) rotateY(-6deg);
+}
+
+/* Meio: reto */
+#projetos .col:nth-child(3n+2) .card:hover {
+  transform: translateY(-10px) scale(1.03);
+}
+
+/* Direita: inclina p/ dentro no outro sentido */
+#projetos .col:nth-child(3n+3) .card:hover {
+  transform: translateY(-10px) scale(1.03) rotateY(6deg);
+}
+
+/* Responsivo: em telas menores (1 por linha), mantem só a elevação */
+@media (max-width: 767.98px) {
+  #projetos .card:hover {
+    transform: translateY(-8px) scale(1.02);
+  }
 }
 
 .header {
@@ -50,7 +93,10 @@ body.fade-out #transition-canvas {
 .jumbotron{
     background-color: #d2d2d200;
     z-index: 0;
-    padding: 2rem;
+}
+
+.navbar-brand{
+    margin: 0%;
 }
 
 .nav-link 

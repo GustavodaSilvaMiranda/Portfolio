@@ -117,78 +117,119 @@ window.addEventListener("mouseout", () => {
 init();
 animate();
 
+// ==================== LOGIN (PÁGINA DE SENHA) ====================
 document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('login-form');
   const senhaInput = document.getElementById('senha');
   const message = document.getElementById('login-message');
 
-  form.addEventListener('submit', function (e) {
-  e.preventDefault();
+  // Se não estiver na página de login, simplesmente não faz nada
+  if (form && senhaInput && message) {
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
 
-  const senhaCorreta = "04112024";
+      const senhaCorreta = "04112024";
 
-  if (senhaInput.value === senhaCorreta) {
-      message.textContent = "Senha correta! ❤️ Bem-vinda!";
-      message.style.color = "green";
+      if (senhaInput.value === senhaCorreta) {
+        message.textContent = "Senha correta! ❤️ Bem-vinda!";
+        message.style.color = "green";
 
-      setTimeout(() => {
-        window.location.href = "Surpresa.html";
-      }, 3000); // 3 segundos de espera
-    } else {
-      message.textContent = "Senha incorreta. Tente novamente.";
-      message.style.color = "red";
-    }
-  });
-});
+        setTimeout(() => {
+          window.location.href = "Surpresa.html";
+        }, 3000); // 3 segundos de espera
+      } else {
+        message.textContent = "Senha incorreta. Tente novamente.";
+        message.style.color = "red";
+      }
+    });
+  }
 
-// Contador de tempo desde 04/11/2024
+  // ==================== CONTADOR DE NAMORO ====================
+  // IDs usados na Surpresa: anosN, mesesN, diasN, horasN, minutosN, segundosN
+  const anosN     = document.getElementById('anosN');
+  const mesesN    = document.getElementById('mesesN');
+  const diasN     = document.getElementById('diasN');
+  const horasN    = document.getElementById('horasN');
+  const minutosN  = document.getElementById('minutosN');
+  const segundosN = document.getElementById('segundosN');
 
-document.addEventListener('DOMContentLoaded', () => {
-  const contador = document.getElementById('contador-surpresa');
+  // funçãozinha de plural
+  function p(n, s, p) {
+    return `${n} ${n === 1 ? s : p}`;
+  }
 
-  if (contador) {
-    function atualizarContador() {
-      const dataInicial = new Date('2024-11-04T15:15:15');
+  if (anosN && mesesN && diasN && horasN && minutosN && segundosN) {
+    function atualizarNamoro() {
+      // 04/11/2024 às 15:15:15 (mês 10 = novembro)
+      const inicio = new Date(2024, 10, 4, 15, 15, 15);
       const agora = new Date();
 
-      let anos = agora.getFullYear() - dataInicial.getFullYear();
-      let meses = agora.getMonth() - dataInicial.getMonth();
-      let dias = agora.getDate() - dataInicial.getDate();
-      let horas = agora.getHours() - dataInicial.getHours();
-      let minutos = agora.getMinutes() - dataInicial.getMinutes();
-      let segundos = agora.getSeconds() - dataInicial.getSeconds();
+      let a   = agora.getFullYear() - inicio.getFullYear();
+      let m   = agora.getMonth()    - inicio.getMonth();
+      let d   = agora.getDate()     - inicio.getDate();
+      let h   = agora.getHours()    - inicio.getHours();
+      let min = agora.getMinutes()  - inicio.getMinutes();
+      let s   = agora.getSeconds()  - inicio.getSeconds();
 
-      if (segundos < 0) {
-        segundos += 60;
-        minutos--;
-      }
-      if (minutos < 0) {
-        minutos += 60;
-        horas--;
-      }
-      if (horas < 0) {
-        horas += 24;
-        dias--;
-      }
-      if (dias < 0) {
-        meses--;
-        const ultimoMes = new Date(agora.getFullYear(), agora.getMonth(), 0).getDate();
-        dias += ultimoMes;
-      }
-      if (meses < 0) {
-        meses += 12;
-        anos--;
+      if (s < 0)   { s += 60;   min--; }
+      if (min < 0) { min += 60; h--;   }
+      if (h < 0)   { h += 24;   d--;   }
+
+      if (d < 0) {
+        m--;
+        const diasMesAnterior = new Date(agora.getFullYear(), agora.getMonth(), 0).getDate();
+        d += diasMesAnterior;
       }
 
-      document.getElementById('anos').textContent = `${anos} ano${anos !== 1 ? 's' : ''}`;
-      document.getElementById('meses').textContent = `${meses} mês${meses !== 1 ? 'es' : ''}`;
-      document.getElementById('dias').textContent = `${dias} dia${dias !== 1 ? 's' : ''}`;
-      document.getElementById('horas').textContent = `${horas} hora${horas !== 1 ? 's' : ''}`;
-      document.getElementById('minutos').textContent = `${minutos} minuto${minutos !== 1 ? 's' : ''}`;
-      document.getElementById('segundos').innerHTML = `${segundos} segundo${segundos !== 1 ? 's' : ''} juntos <span title="E pela eternidade ❤️" style="cursor: help;">&#10084;&#65039;*</span>`;
+      if (m < 0) { m += 12; a--; }
+
+      anosN.textContent     = p(a,  'ano',     'anos');
+      mesesN.textContent    = p(m,  'mês',     'meses');
+      diasN.textContent     = p(d,  'dia',     'dias');
+      horasN.textContent    = p(h,  'hora',    'horas');
+      minutosN.textContent  = p(min,'minuto',  'minutos');
+      segundosN.innerHTML   = `${p(s, 'segundo', 'segundos')} juntos <span title="E pela eternidade ❤️" style="cursor: help;">&#10084;&#65039;*</span>`;
     }
 
-    atualizarContador();
-    setInterval(atualizarContador, 1000);
+    atualizarNamoro();
+    setInterval(atualizarNamoro, 1000);
+  }
+
+  // ==================== COUNTDOWN CASAMENTO ====================
+  const faltamDias     = document.getElementById('faltamDias');
+  const faltamHoras    = document.getElementById('faltamHoras');
+  const faltamMinutos  = document.getElementById('faltamMinutos');
+  const faltamSegundos = document.getElementById('faltamSegundos');
+
+  if (faltamDias && faltamHoras && faltamMinutos && faltamSegundos) {
+    // 06/09/2026 às 15:00 (mês 8 = setembro)
+    const casamento = new Date(2026, 8, 6, 15, 0, 0);
+
+    function atualizarNoivado() {
+      const agora = new Date();
+      let diff = casamento - agora;
+
+      if (diff <= 0) {
+        faltamDias.textContent     = "É HOJE! 💍";
+        faltamHoras.textContent    = "";
+        faltamMinutos.textContent  = "";
+        faltamSegundos.textContent = "";
+        return;
+      }
+
+      const totalSeg = Math.floor(diff / 1000);
+      const d  = Math.floor(totalSeg / 86400);
+      const h  = Math.floor((totalSeg % 86400) / 3600);
+      const m  = Math.floor((totalSeg % 3600)  / 60);
+      const s  = totalSeg % 60;
+
+      faltamDias.textContent     = p(d, 'dia', 'dias');
+      faltamHoras.textContent    = p(h, 'hora', 'horas');
+      faltamMinutos.textContent  = p(m, 'minuto', 'minutos');
+      faltamSegundos.textContent = p(s, 'segundo', 'segundos');
+    }
+
+    atualizarNoivado();
+    setInterval(atualizarNoivado, 1000);
   }
 });

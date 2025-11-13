@@ -5,26 +5,67 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Surpresa ❤️</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
   <link rel="stylesheet" href="../../css/login.css"/>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
 </head>
 <body class="body-login">
   <canvas id="canvas1"></canvas>
 
   <div class="surpresa-container">
     <h1>❤️ Nosso Tempo Juntos ❤️</h1>
-    <div id="contador-surpresa" class="contador-tempo mt-3">
-      <p id="anos"></p>
-      <p id="meses"></p>
-      <p id="dias"></p>
-      <p id="horas"></p>
-      <p id="minutos"></p>
-      <p id="segundos"></p>
+
+    <!-- Abinhas -->
+    <ul class="nav nav-pills justify-content-center contador-tabs" id="contadorTabs" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" id="tab-namoro" data-toggle="pill" href="#pane-namoro" role="tab" aria-controls="pane-namoro" aria-selected="true">
+          <i class="bi bi-heart-fill"></i> Tempo de Namoro
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="tab-noivado" data-toggle="pill" href="#pane-noivado" role="tab" aria-controls="pane-noivado" aria-selected="false">
+          <i class="bi bi-calendar-heart"></i> Contagem Regressiva
+        </a>
+      </li>
+    </ul>
+
+    <div class="tab-content mt-3" id="contadorTabContent">
+      <!-- Painel 1: Namoro -->
+      <div class="tab-pane fade show active" id="pane-namoro" role="tabpanel" aria-labelledby="tab-namoro">
+        <div id="contador-namoro" class="contador-tempo mt-2">
+          <p id="anosN"></p>
+          <p id="mesesN"></p>
+          <p id="diasN"></p>
+          <p id="horasN"></p>
+          <p id="minutosN"></p>
+          <p id="segundosN"></p>
+        </div>
+      </div>
+
+      <!-- Painel 2: Casamento (countdown) -->
+      <div class="tab-pane fade" id="pane-noivado" role="tabpanel" aria-labelledby="tab-noivado">
+        <div id="contador-noivado" class="contador-tempo mt-2">
+          <p class="titulo-faltam">Faltam</p>
+          <p id="faltamDias"></p>
+          <p id="faltamHoras"></p>
+          <p id="faltamMinutos"></p>
+          <p id="faltamSegundos"></p>
+          <p class="texto-especial">❤️ Para nosso dia especial ❤️</p>
+          <small class="text-muted d-block mt-2">
+            Data: <strong>06/09/2026</strong> às <strong>15:00</strong>
+          </small>
+        </div>
+      </div>
     </div>
+
     <a href="https://photos.google.com/album/AF1QipMWS5WSGHP8QzmKbGev7G7xfTkmLZcCOkq3W28X/photo/AF1QipMpVGaTrbLD091oNqAAQdDQ8NjdXHIFt90MpGDV" target="_blank" class="album-btn">
       🌸 Ver Nosso Álbum Secreto 🌸
     </a>
   </div>
+
+  <!-- Necessário para tabs do Bootstrap funcionarem -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
   <script src="../../js/login.js"></script>
 </body>
