@@ -1,7 +1,7 @@
 body.body-login, html {
   margin: 0;
   padding: 0;
-  overflow: hidden;
+  overflow-x: hidden; /* deixa rolar na vertical: no celular o conteúdo era cortado */
   font-family: 'Quicksand', sans-serif;
   height: 100%;
   background-color: #ffdde1;
@@ -9,7 +9,7 @@ body.body-login, html {
 }
 
 #canvas1 {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -79,8 +79,7 @@ body.fade-out #transition-overlay {
   position: relative;
   z-index: 1;
   max-width: 500px;
-  margin: auto;
-  margin-top: 10vh;
+  margin: 10vh auto 40px;
   background: rgba(255, 255, 255, 0.9);
   padding: 30px 20px;
   border-radius: 15px;
@@ -178,4 +177,16 @@ body.fade-out #transition-overlay {
 #contadorTabContent .tab-pane.active.show {
   opacity: 1;
   transform: translateY(0);
+}
+/* Celular: margem lateral e abas que cabem na tela */
+@media (max-width: 532px) {
+  .login-container,
+  .surpresa-container {
+    margin-left: 16px;
+    margin-right: 16px;
+  }
+  .contador-tabs .nav-link {
+    margin: 4px;
+    font-size: 0.95rem;
+  }
 }

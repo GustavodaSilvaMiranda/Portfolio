@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Portfólio de Gustavo Miranda - Desenvolvedor Focado em tecnologia e inovação.">
     <meta name="keywords" content="Gustavo Miranda, portfólio, desenvolvedor, projetos, tecnologia, HTML, CSS, JavaScript">
     <meta name="robots" content="index, follow">
@@ -9,9 +11,7 @@
     <meta property="og:image" content="https://gustavodasilvamiranda.github.io/Portfolio/assets/images/Logo/LogoPreto.png">
     <meta property="og:url" content="https://gustavodasilvamiranda.github.io/Portfolio/">
     <link rel="canonical" href="https://gustavodasilvamiranda.github.io/Portfolio/">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="copyright" content="© Gustavo Miranda, 2023–2025">
+    <meta name="copyright" content="© Gustavo Miranda, 2023–2026">
     <meta name="author" content="Gustavo Miranda">
 
     <!-- Favicon -->
@@ -26,13 +26,13 @@
     <title>Portfólio</title>
 
     <!-- Bootstrap e CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="./css/style.css">
 </head>
 <body class="body">
   <canvas id="transition-canvas"></canvas>
-  <canvas id="canvas1"></canvas>
   <div class="header d-flex flex-column p-0">
+    <canvas id="canvas1"></canvas>
     <nav class="navbar navbar-expand-lg bg-gradient">
       <div class="container d-flex flex-column p-0">
         <a class="navbar-brand" href="#">
@@ -56,7 +56,7 @@
         <div class="container">
           <h1 class="display-4">Bem-vindo ao Meu Portfólio</h1>
           <p class="lead">Uma demonstração dos meus projetos e habilidades.</p>
-          <button type="button" class="btn btn-custom"><a class="nav-link nav-link-btn" href="#sobre">Saiba Mais</a></button>
+          <a class="btn btn-custom" href="#sobre">Saiba Mais</a>
         </div>
     </header>
   </div>
@@ -101,18 +101,19 @@
 
     <section id="contato" class="section animate-on-scroll container mb-4">
         <h2 class="text-center mb-4">Contato</h2>
-        <form>
+        <!-- GitHub Pages não tem servidor: o envio abre o app de e-mail do visitante (ver js/script.js) -->
+        <form id="contact-form">
           <div class="form-group">
             <label for="name">Nome</label>
-            <input type="text" class="form-control" id="name" placeholder="Seu Nome">
+            <input type="text" class="form-control" id="name" name="name" placeholder="Seu Nome" required>
           </div>
           <div class="form-group">
             <label for="email">Email</label>
-            <input type="email" class="form-control" id="email" placeholder="Seu Email">
+            <input type="email" class="form-control" id="email" name="email" placeholder="Seu Email" required>
           </div>
           <div class="form-group">
             <label for="message">Mensagem</label>
-            <textarea class="form-control" id="message" rows="3" placeholder="Sua Mensagem"></textarea>
+            <textarea class="form-control" id="message" name="message" rows="3" placeholder="Sua Mensagem" required></textarea>
           </div>
           <button type="submit" class="btn btn-primary">Enviar</button>
         </form>
@@ -123,11 +124,11 @@
     </footer>
 
 
-    <script src="js/script.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
     <a href="docs/Pages/login.html" class="love-btn" title="Surpresa ❤️">❤️</a>
+
+    <!-- bootstrap.bundle já inclui o Popper v1 (compatível com Bootstrap 4) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/script.js"></script>
 </body>
 </html>

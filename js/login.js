@@ -41,8 +41,8 @@ class Particle {
     let dy = mouse.y - this.y;
     let distance = Math.sqrt(dx * dx + dy * dy);
 
-    if (distance < mouse.radius + this.size) {
-        const force = (mouse.radius - distance) / mouse.radius; // valor entre 0 e 1
+    if (mouse.x !== null && distance > 0 && distance < mouse.radius + this.size) {
+        const force = Math.max(0, (mouse.radius - distance) / mouse.radius); // valor entre 0 e 1
         const moveX = (dx / distance) * force * 5; // força moderada
         const moveY = (dy / distance) * force * 5;
 
@@ -72,17 +72,18 @@ function init() {
 }
 
 function connect() {
-  let opacityValue = 1;
+  // Acima de 20000 a opacidade ficaria negativa (linha invisível), então nem desenha
+  const maxDistance = Math.min((canvas.width / 7) * (canvas.height / 7), 20000);
+  ctx.lineWidth = 1;
   for (let a = 0; a < particlesArray.length; a++) {
-    for (let b = a; b < particlesArray.length; b++) {
+    for (let b = a + 1; b < particlesArray.length; b++) {
       let dx = particlesArray[a].x - particlesArray[b].x;
       let dy = particlesArray[a].y - particlesArray[b].y;
       let distance = dx * dx + dy * dy;
 
-      if (distance < (canvas.width / 7) * (canvas.height / 7)) {
-        opacityValue = 1 - (distance / 20000);
+      if (distance < maxDistance) {
+        let opacityValue = 1 - (distance / 20000);
         ctx.strokeStyle = `rgba(130, 0, 0, ${opacityValue})`;
-        ctx.lineWidth = 1;
         ctx.beginPath();
         ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
         ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
@@ -103,16 +104,33 @@ function animate() {
 }
 
 window.addEventListener("resize", () => {
+  const oldWidth = canvas.width;
+  const oldHeight = canvas.height;
   canvas.width = innerWidth;
   canvas.height = innerHeight;
   mouse.radius = (canvas.height / 80) * (canvas.width / 80);
-  init();
+  // No celular a barra de endereço muda só a altura ao rolar: não recria os corações
+  if (canvas.width !== oldWidth || Math.abs(canvas.height - oldHeight) > 150) {
+    init();
+  }
 });
 
-window.addEventListener("mouseout", () => {
-  mouse.x = undefined;
-  mouse.y = undefined;
+document.addEventListener("mouseleave", () => {
+  mouse.x = null;
+  mouse.y = null;
 });
+
+// Ao voltar com o botão "voltar" do navegador, remove o fade que ficou ativo
+window.addEventListener("pageshow", () => {
+  document.body.classList.remove("fade-out");
+});
+
+// SHA-256 em hexadecimal (para não deixar a senha em texto puro no código)
+async function sha256(texto) {
+  const bytes = new TextEncoder().encode(texto);
+  const hash = await crypto.subtle.digest("SHA-256", bytes);
+  return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2, "0")).join("");
+}
 
 init();
 animate();
@@ -125,12 +143,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Se não estiver na página de login, simplesmente não faz nada
   if (form && senhaInput && message) {
-    form.addEventListener('submit', function (e) {
+    form.addEventListener('submit', async function (e) {
       e.preventDefault();
 
-      const senhaCorreta = "04112024";
+      // Hash SHA-256 da senha
+      const hashSenhaCorreta = "c3391626e03141948bbce776a4e4d41310a925c0cd30f26eb2a084fc63d44bd8";
 
-      if (senhaInput.value === senhaCorreta) {
+      if (await sha256(senhaInput.value.trim()) === hashSenhaCorreta) {
         message.textContent = "Senha correta! ❤️ Bem-vinda!";
         message.style.color = "green";
 
@@ -141,6 +160,18 @@ document.addEventListener('DOMContentLoaded', () => {
         message.textContent = "Senha incorreta. Tente novamente.";
         message.style.color = "red";
       }
+    });
+  }
+
+  // Botão voltar com o mesmo fade da ida
+  const backBtn = document.querySelector('.back-btn');
+  if (backBtn && document.getElementById('transition-overlay')) {
+    backBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      document.body.classList.add('fade-out');
+      setTimeout(() => {
+        window.location.href = backBtn.getAttribute('href');
+      }, 800);
     });
   }
 
@@ -205,16 +236,32 @@ document.addEventListener('DOMContentLoaded', () => {
     // 06/09/2026 às 15:00 (mês 8 = setembro)
     const casamento = new Date(2026, 8, 6, 15, 0, 0);
 
+    const tabLabel = document.getElementById('tab-noivado-label');
+    const titulo   = document.getElementById('tituloNoivado');
+    const texto    = document.getElementById('textoNoivado');
+
     function atualizarNoivado() {
       const agora = new Date();
       let diff = casamento - agora;
 
-      if (diff <= 0) {
+      const ehHoje = agora.getFullYear() === casamento.getFullYear()
+        && agora.getMonth() === casamento.getMonth()
+        && agora.getDate() === casamento.getDate();
+
+      if (diff <= 0 && ehHoje) {
         faltamDias.textContent     = "É HOJE! 💍";
         faltamHoras.textContent    = "";
         faltamMinutos.textContent  = "";
         faltamSegundos.textContent = "";
         return;
+      }
+
+      // Depois do casamento: em vez de travar em "É HOJE!", conta o tempo de casados
+      if (diff < 0) {
+        diff = -diff;
+        if (tabLabel) tabLabel.textContent = "Tempo de Casados";
+        if (titulo)   titulo.textContent   = "Casados há";
+        if (texto)    texto.textContent    = "❤️ Desde o nosso dia especial ❤️";
       }
 
       const totalSeg = Math.floor(diff / 1000);

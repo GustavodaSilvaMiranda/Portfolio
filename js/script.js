@@ -7,7 +7,7 @@ function iniEfDig() {
     // Função interna que executa o efeito de digitação
     function typeEffect() {
         if (index < text.length) {
-            titleElement.innerHTML += text.charAt(index); // Adiciona a próxima letra
+            titleElement.textContent += text.charAt(index); // Adiciona a próxima letra
             index++;
             setTimeout(typeEffect, 125); // Controla a velocidade da digitação (em milissegundos)
         }
@@ -16,50 +16,83 @@ function iniEfDig() {
     typeEffect(); // Inicia o efeito de digitação
 }
 
-function isElInViewport(element) {
-    const rect = element.getBoundingClientRect();
-    return (
-        rect.top >= 0 &&
-        rect.left >= 0 &&
-        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-        rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-    );
+// Inicia o efeito de digitação ao carregar a página
+window.addEventListener('load', iniEfDig);
+
+// Mostra as seções quando uma parte delas entra na tela
+// (antes exigia a seção inteira visível, o que nunca acontecia com seções altas no celular)
+const sections = document.querySelectorAll('.animate-on-scroll');
+if ('IntersectionObserver' in window) {
+    const sectionObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                sectionObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.15 });
+    sections.forEach((section) => sectionObserver.observe(section));
+} else {
+    sections.forEach((section) => section.classList.add('visible'));
 }
 
-function animateOnScroll() {
-    const sections = document.querySelectorAll('.animate-on-scroll');
-
-    sections.forEach((section) => {
-        if (isElInViewport(section)) {
-            section.classList.add('visible');
+// Rolagem suave para todos os links internos (menu e botão "Saiba Mais")
+document.querySelectorAll('a[href^="#"]').forEach((link) => {
+    link.addEventListener('click', function (event) {
+        const href = this.getAttribute('href');
+        if (href === '#') {
+            event.preventDefault();
+            window.scrollTo({ top: 0, behavior: "smooth" });
+            return;
         }
-    });
-}
+        const target = document.querySelector(href);
+        if (!target) return;
 
-document.querySelector('a[href="#sobre"]').addEventListener('click', function (event) {
-    event.preventDefault();
-    const target = document.querySelector(this.getAttribute('href'));
-    const offset = window.innerWidth <= 768 ? 50 : 75;
-    const elementPosition = target.getBoundingClientRect().top;
-    const offsetPosition = elementPosition + window.pageYOffset - offset;
+        event.preventDefault();
+        const offset = window.innerWidth <= 768 ? 50 : 75;
+        const offsetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
 
-    window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth"
+        window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth"
+        });
+
+        // Fecha o menu no celular depois de clicar
+        if (window.jQuery && this.closest('.navbar-collapse')) {
+            window.jQuery('#navbarNav').collapse('hide');
+        }
     });
 });
 
-window.addEventListener('scroll', animateOnScroll)
-window.addEventListener('load', animateOnScroll)
+// Formulário de contato: o GitHub Pages não tem servidor,
+// então abre o app de e-mail do visitante com a mensagem preenchida
+const contactForm = document.getElementById('contact-form');
+if (contactForm) {
+    contactForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+        const name = document.getElementById('name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const message = document.getElementById('message').value.trim();
 
-// Inicia o efeito de digitação ao carregar a página
-window.onload = iniEfDig;
+        const subject = `Contato pelo portfólio - ${name}`;
+        const body = `${message}\n\n${name}\n${email}`;
+        window.location.href = 'mailto:gustavomiranda.enterprise@gmail.com'
+            + '?subject=' + encodeURIComponent(subject)
+            + '&body=' + encodeURIComponent(body);
+    });
+}
 
 
+// ==================== PARTÍCULAS DO TOPO ====================
+// O canvas fica dentro do .header e ocupa só a área do topo
 const canvas = document.getElementById("canvas1");
 const ctx = canvas.getContext('2d');
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+
+function resizeCanvas() {
+    canvas.width = canvas.clientWidth;
+    canvas.height = canvas.clientHeight;
+}
+resizeCanvas();
 
 let particlesArrey;
 
@@ -72,8 +105,10 @@ let mouse = {
 
 window.addEventListener('mousemove',
     function(event) {
-        mouse.x = event.x;
-        mouse.y = event.y;
+        // Converte para coordenadas do canvas (funciona mesmo com a página rolada)
+        const rect = canvas.getBoundingClientRect();
+        mouse.x = event.clientX - rect.left;
+        mouse.y = event.clientY - rect.top;
     }
 );
 
@@ -91,7 +126,7 @@ class Particle {
     draw() {
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
-        ctx.fillStyle = '#003667';
+        ctx.fillStyle = this.color;
         ctx.fill();
     }
     //checa a posição da particula e do mouse
@@ -103,16 +138,18 @@ class Particle {
             this.directionY = -this.directionY;
         }
 
-        let dx = mouse.x - this.x;
-        let dy = mouse.y - this.y;
-        let distance = Math.sqrt(dx*dx + dy*dy);
-        if (distance < mouse.radius + this.size) {
-            const force = (mouse.radius - distance) / mouse.radius; // valor entre 0 e 1
-            const moveX = (dx / distance) * force * 5; // força moderada
-            const moveY = (dy / distance) * force * 5;
+        if (mouse.x !== null) {
+            let dx = mouse.x - this.x;
+            let dy = mouse.y - this.y;
+            let distance = Math.sqrt(dx*dx + dy*dy);
+            if (distance > 0 && distance < mouse.radius + this.size) {
+                const force = Math.max(0, (mouse.radius - distance) / mouse.radius); // valor entre 0 e 1
+                const moveX = (dx / distance) * force * 5; // força moderada
+                const moveY = (dy / distance) * force * 5;
 
-            this.x -= moveX;
-            this.y -= moveY;
+                this.x -= moveX;
+                this.y -= moveY;
+            }
         }
         this.x += this.directionX;
         this.y += this.directionY;
@@ -125,8 +162,8 @@ function init() {
     let numberOfParticles = (canvas.height * canvas.width) / 9000;
     for (let i = 0; i < numberOfParticles; i++) {
         let size = (Math.random() * 5) + 1;
-        let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size *2);
-        let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size *2);
+        let x = (Math.random() * ((canvas.width - size * 2) - (size * 2)) + size *2);
+        let y = (Math.random() * ((canvas.height - size * 2) - (size * 2)) + size *2);
         let directionX = (Math.random() * 5) - 2.5;
         let directionY = (Math.random() * 5) - 2.5;
         let color = '#003667';
@@ -136,14 +173,17 @@ function init() {
 }
 
 function connect() {
-    let opacityValue = 1;
+    // Acima de 20000 a opacidade ficaria negativa (linha invisível), então nem desenha
+    const maxDistance = Math.min((canvas.width/7) * (canvas.height/7), 20000);
+    ctx.lineWidth = 1;
     for (let a = 0; a < particlesArrey.length; a++) {
-        for (let b = a; b < particlesArrey.length; b++) {
-            let distance = (( particlesArrey[a].x - particlesArrey[b].x) * (particlesArrey[a].x - particlesArrey[b].x)) + ((particlesArrey[a].y - particlesArrey[b].y) * (particlesArrey[a].y - particlesArrey[b].y));
-            if (distance < (canvas.width/7) * (canvas.height/7)) {
-                opacityValue = 1 - (distance/20000);
+        for (let b = a + 1; b < particlesArrey.length; b++) {
+            let dx = particlesArrey[a].x - particlesArrey[b].x;
+            let dy = particlesArrey[a].y - particlesArrey[b].y;
+            let distance = dx * dx + dy * dy;
+            if (distance < maxDistance) {
+                let opacityValue = 1 - (distance/20000);
                 ctx.strokeStyle = 'rgba(0, 54, 103,' + opacityValue + ')';
-                ctx.lineWidth = 1;
                 ctx.beginPath();
                 ctx.moveTo(particlesArrey[a].x, particlesArrey[a].y);
                 ctx.lineTo(particlesArrey[b].x, particlesArrey[b].y);
@@ -153,72 +193,97 @@ function connect() {
     }
 }
 
+// Só anima enquanto o topo está visível (economiza CPU/bateria ao rolar a página)
+let heroVisible = true;
+let animationId = null;
+
 function animate() {
-    requestAnimationFrame(animate);
-    ctx.clearRect(0, 0, innerWidth, innerHeight);
+    if (!heroVisible) {
+        animationId = null;
+        return;
+    }
+    animationId = requestAnimationFrame(animate);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
     for (let i = 0; i < particlesArrey.length; i++) {
         particlesArrey[i].update();
     }
     connect();
 }
 
+if ('IntersectionObserver' in window) {
+    new IntersectionObserver((entries) => {
+        heroVisible = entries[0].isIntersecting;
+        if (heroVisible && animationId === null) animate();
+    }).observe(canvas);
+}
+
+let lastWidth = canvas.clientWidth;
 window.addEventListener('resize',
     function(){
-        canvas.width = innerWidth;
-        canvas.height = innerHeight;
-        mouse.radius = ((canvas.height/80) * (canvas.height/80));
-        init();
+        const oldHeight = canvas.height;
+        resizeCanvas();
+        mouse.radius = (canvas.height/80) * (canvas.width/80);
+        // No celular a barra de endereço muda só a altura ao rolar:
+        // nesse caso não recria as partículas (evitava o "pulo" da animação)
+        if (canvas.width !== lastWidth || Math.abs(canvas.height - oldHeight) > 150) {
+            lastWidth = canvas.width;
+            init();
+        }
     }
 );
 
-window.addEventListener('mouseout',
+document.addEventListener('mouseleave',
     function(){
-        mouse.x = undefined;
-        mouse.y = undefined;
+        mouse.x = null;
+        mouse.y = null;
     }
 );
 
-document.addEventListener('DOMContentLoaded', () => {
-  const loveBtn = document.querySelector('.love-btn');
-  const transitionCanvas = document.getElementById('transition-canvas');
+init();
+animate();
 
-  if (loveBtn && transitionCanvas) {
-    // Prepara o gradiente do fundo igual ao do login
-    const tCtx = transitionCanvas.getContext('2d');
-    transitionCanvas.width = window.innerWidth;
-    transitionCanvas.height = window.innerHeight;
 
-    const gradient = tCtx.createRadialGradient(
-      transitionCanvas.width / 2,
-      transitionCanvas.height / 2,
-      100,
-      transitionCanvas.width / 2,
-      transitionCanvas.height / 2,
-      transitionCanvas.width
-    );
-    gradient.addColorStop(0, '#ffccd5'); // cor clara
-    gradient.addColorStop(1, '#b33951'); // cor escura
+// ==================== TRANSIÇÃO DO BOTÃO ❤️ ====================
+const loveBtn = document.querySelector('.love-btn');
+const transitionCanvas = document.getElementById('transition-canvas');
 
-    tCtx.fillStyle = gradient;
-    tCtx.fillRect(0, 0, transitionCanvas.width, transitionCanvas.height);
-
+if (loveBtn && transitionCanvas) {
     // Efeito de fade com canvas
     loveBtn.addEventListener('click', function (e) {
-      e.preventDefault();
-      document.body.classList.add('fade-out');
-      setTimeout(() => {
-        window.location.href = loveBtn.getAttribute('href');
-      }, 800);
-    });
-  }
-});
+        e.preventDefault();
 
+        // Prepara o gradiente do fundo igual ao do login (no tamanho atual da tela)
+        const tCtx = transitionCanvas.getContext('2d');
+        transitionCanvas.width = window.innerWidth;
+        transitionCanvas.height = window.innerHeight;
+
+        const gradient = tCtx.createRadialGradient(
+            transitionCanvas.width / 2,
+            transitionCanvas.height / 2,
+            100,
+            transitionCanvas.width / 2,
+            transitionCanvas.height / 2,
+            transitionCanvas.width
+        );
+        gradient.addColorStop(0, '#ffccd5'); // cor clara
+        gradient.addColorStop(1, '#b33951'); // cor escura
+
+        tCtx.fillStyle = gradient;
+        tCtx.fillRect(0, 0, transitionCanvas.width, transitionCanvas.height);
+
+        document.body.classList.add('fade-out');
+        setTimeout(() => {
+            window.location.href = loveBtn.getAttribute('href');
+        }, 800);
+    });
+}
+
+// Ao voltar com o botão "voltar" do navegador, a página vem do cache ainda com o fade ativo
+// (tela rosa travada). Isso remove o fade.
+window.addEventListener('pageshow', function () {
+    document.body.classList.remove('fade-out');
+});
 
 
 // Atualiza automaticamente o ano no texto
 document.querySelector('.year').textContent = new Date().getFullYear();
-    
-
-
-init();
-animate();
